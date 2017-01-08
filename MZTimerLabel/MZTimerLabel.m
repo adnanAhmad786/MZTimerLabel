@@ -336,7 +336,19 @@
                 startCountDate = nil;
                 timerEnded = true;
             }else{
-                timeToShow = [timeToCountOff dateByAddingTimeInterval:(timeDiff*-1)]; //added 0.999 to make it actually counting the whole first second
+
+                NSCalendar *calendar = [NSCalendar currentCalendar];
+                NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:[self toLocalTime:timeToShow]];
+                
+                //NSInteger hour = [components hour];
+                NSInteger minute = [components minute];
+                NSInteger second = [components second];
+                
+                if (minute != 0 && second != 1) {
+                    timeToShow = [timeToCountOff dateByAddingTimeInterval:(timeDiff*-1)]; //added 0.999 to make it actually counting the whole first second
+                    
+                }
+
             }
             
         }else{
@@ -385,6 +397,18 @@
                     self.timeLabel.text = labelText;
                 }
             } else {
+                
+                NSCalendar *calendar = [NSCalendar currentCalendar];
+                NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:[self toLocalTime:timeToShow]];
+                
+                //NSInteger hour = [components hour];
+                NSInteger minute = [components minute];
+                NSInteger second = [components second];
+                
+                if (minute == 0 && second == 0) {
+                    timerEnded = YES;
+                }
+
                 self.timeLabel.text = [self.dateFormatter stringFromDate:timeToShow];
             }
         }
@@ -408,5 +432,14 @@
     }
     
 }
+
+-(NSDate *) toLocalTime:(NSDate *)toDate
+{
+    NSTimeZone *tz = [NSTimeZone defaultTimeZone];
+    NSInteger seconds = [tz secondsFromGMTForDate: toDate];
+    return [NSDate dateWithTimeInterval: seconds sinceDate: toDate];
+}
+
+
 
 @end
