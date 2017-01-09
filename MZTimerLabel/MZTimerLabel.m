@@ -337,19 +337,8 @@
                 timerEnded = true;
             }else{
 
-                NSCalendar *calendar = [NSCalendar currentCalendar];
-                NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:[self toLocalTime:timeToShow]];
                 
-                //NSInteger hour = [components hour];
-                NSInteger minute = [components minute];
-                NSInteger second = [components second];
-                
-                if (minute != 0 && second != 1) {
-                    timeToShow = [timeToCountOff dateByAddingTimeInterval:(timeDiff*-1)]; //added 0.999 to make it actually counting the whole first second
-                }
-                else{
-                    timeToShow = [timeToCountOff dateByAddingTimeInterval:(timeDiff)]; //added 
-                }
+                timeToShow = [timeToCountOff dateByAddingTimeInterval:(timeDiff*-1)]; //added 0.999 to make it actually counting the whole first second
 
             }
             
@@ -407,7 +396,7 @@
                 NSInteger minute = [components minute];
                 NSInteger second = [components second];
                 
-                if (minute == 0 && second == 0) {
+                if (minute == 0 && second == 1) {
                     timerEnded = YES;
                 }
 
