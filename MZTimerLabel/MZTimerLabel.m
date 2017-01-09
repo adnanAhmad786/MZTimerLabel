@@ -346,7 +346,9 @@
                 
                 if (minute != 0 && second != 1) {
                     timeToShow = [timeToCountOff dateByAddingTimeInterval:(timeDiff*-1)]; //added 0.999 to make it actually counting the whole first second
-                    
+                }
+                else{
+                    timeToShow = [timeToCountOff dateByAddingTimeInterval:(timeDiff)]; //added 
                 }
 
             }
