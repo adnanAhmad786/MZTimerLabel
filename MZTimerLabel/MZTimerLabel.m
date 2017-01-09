@@ -396,7 +396,7 @@
                 NSInteger minute = [components minute];
                 NSInteger second = [components second];
                 
-                if (minute == 0 && second == 1) {
+                if (minute == 0 && second == 0) {
                     timerEnded = YES;
                 }
 
